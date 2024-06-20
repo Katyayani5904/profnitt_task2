@@ -23,7 +23,7 @@ if submitted:
     date_added = datetime.date.today()
     target_returns = (target_price - entry_price) / entry_price * 100
     trading_days_elapsed = 0
-    quantity = math.ceil(quantity)  # Convert fractional share values to integer
+    quantity = math.ceil(quantity) 
     portfolio_data.append({
         'Security': security,
         'Entry Price': entry_price,
@@ -34,7 +34,7 @@ if submitted:
         'Trading Days Elapsed': trading_days_elapsed,
         'Notes': notes,
         'Expected Holding Period': expected_holding_period,
-        'Previous Shares': []  # Initialize previous shares list
+        'Previous Shares': []
     })
 
 st.header("Portfolio")
@@ -51,9 +51,9 @@ with st.form("update_shares"):
     submitted = st.form_submit_button("Update")
 
 if submitted:
-    portfolio_data[index]['Previous Shares'].append(portfolio_data[index]['Quantity'])  # Store previous shares
+    portfolio_data[index]['Previous Shares'].append(portfolio_data[index]['Quantity']) 
     new_quantity = math.ceil(new_quantity)  # Convert fractional share values to integer
-    portfolio_data[index]['Quantity'] = new_quantity  # Update current quantity
+    portfolio_data[index]['Quantity'] = new_quantity  
 
 st.header("Delete Security")
 with st.form("delete_security"):
