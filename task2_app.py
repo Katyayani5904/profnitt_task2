@@ -32,7 +32,7 @@ if submitted:
         'Trading Days Elapsed': trading_days_elapsed,
         'Notes': notes,
         'Expected Holding Period': expected_holding_period,
-        'Previous Shares': []  # Initialize previous shares list
+        'Previous Shares': []  
     })
 
 st.header("Portfolio")
@@ -49,8 +49,8 @@ with st.form("update_shares"):
     submitted = st.form_submit_button("Update")
 
 if submitted:
-    portfolio_data[index]['Previous Shares'].append(portfolio_data[index]['Quantity'])  # Store previous shares
-    portfolio_data[index]['Quantity'] = new_quantity  # Update current quantity
+    portfolio_data[index]['Previous Shares'].append(portfolio_data[index]['Quantity'])  
+    portfolio_data[index]['Quantity'] = new_quantity  
 
 st.header("Delete Security")
 with st.form("delete_security"):
