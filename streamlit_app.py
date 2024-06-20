@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import datetime
+import math
 
 securities_data = pd.read_csv('securitiesData.csv')
 
@@ -22,6 +23,7 @@ if submitted:
     date_added = datetime.date.today()
     target_returns = (target_price - entry_price) / entry_price * 100
     trading_days_elapsed = 0
+    quantity = math.ceil(quantity)  # Convert fractional share values to integer
     portfolio_data.append({
         'Security': security,
         'Entry Price': entry_price,
@@ -31,7 +33,8 @@ if submitted:
         'Target Returns': target_returns,
         'Trading Days Elapsed': trading_days_elapsed,
         'Notes': notes,
-        'Expected Holding Period': expected_holding_period
+        'Expected Holding Period': expected_holding_period,
+        'Previous Shares': []  # Initialize previous shares list
     })
 
 st.header("Portfolio")
@@ -40,6 +43,17 @@ if portfolio_data:
     st.write(df)
 else:
     st.write("No securities added to portfolio.")
+
+st.header("Update Shares")
+with st.form("update_shares"):
+    index = st.selectbox("Select security to update", range(len(portfolio_data)))
+    new_quantity = st.number_input("New Quantity")
+    submitted = st.form_submit_button("Update")
+
+if submitted:
+    portfolio_data[index]['Previous Shares'].append(portfolio_data[index]['Quantity'])  # Store previous shares
+    new_quantity = math.ceil(new_quantity)  # Convert fractional share values to integer
+    portfolio_data[index]['Quantity'] = new_quantity  # Update current quantity
 
 st.header("Delete Security")
 with st.form("delete_security"):
@@ -51,4 +65,3 @@ if submitted:
 
 if __name__ == "__main__":
     st.run()
-
