@@ -52,7 +52,7 @@ with st.form("update_shares"):
 
 if submitted:
     portfolio_data[index]['Previous Shares'].append(portfolio_data[index]['Quantity']) 
-    new_quantity = math.ceil(new_quantity)  # Convert fractional share values to integer
+    new_quantity = math.ceil(new_quantity)  
     portfolio_data[index]['Quantity'] = new_quantity  
 
 st.header("Delete Security")
